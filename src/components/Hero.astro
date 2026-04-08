@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/images/2024_Toyota_Land_Cruiser_10_2000x1333.avif';
+---
+
+<section id="hero" class="relative w-full h-screen bg-toyota-black text-toyota-white flex flex-col items-center pt-24 md:pt-32 overflow-hidden">
+  <div class="relative z-10 flex flex-col items-center text-center px-5 max-w-[980px] mx-auto w-full">
+    <p class="text-toyota-white text-xs md:text-sm font-semibold uppercase tracking-[0.08em] mb-2 animate-on-scroll">The All-New</p>
+    <h1 class="text-[40px] md:text-[80px] font-bold leading-[1.1] tracking-[-0.5px] animate-on-scroll">Land Cruiser</h1>
+    <p class="text-[21px] md:text-[28px] font-semibold mt-2 animate-on-scroll">Conquer every terrain.</p>
+    <p class="text-[17px] text-toyota-gray mt-4 mb-8 animate-on-scroll">From ₱3,500,000</p>
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-on-scroll">
+      <a href="#buy" class="flex items-center justify-center bg-toyota-red text-toyota-white h-[56px] px-8 rounded-lg uppercase font-bold text-[16px] hover:bg-red-700 transition-colors">
+        Buy
+      </a>
+      <a href="#learn-more" class="flex items-center justify-center text-toyota-white h-[56px] px-8 font-semibold text-[16px] hover:underline">
+        Learn more <span class="ml-1 text-sm">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="absolute inset-0 w-full h-full pointer-events-none">
+    <Image 
+      src={heroImg} 
+      alt="2024 Toyota Land Cruiser" 
+      class="hero-image object-cover w-full h-full object-bottom"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+  </div>
+</section>

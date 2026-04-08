@@ -1,17 +1,85 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import StickyNav from '../components/StickyNav.astro';
+import FeatureIntro from '../components/FeatureIntro.astro';
+import StatRow from '../components/StatRow.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Animations from '../components/Animations.astro';
 
+import featureImg1 from '../assets/images/landcruiser-car-with-text-and-background-of-see-2560x953.png';
+import featureImg2 from '../assets/images/landcruiser-car_transparent_background-1241x649.png';
+import cardImg1 from '../assets/images/land_cruiser_with_landscape_background-251x201.jpg';
+
+const performanceStats = [
+  { target: 326, unit: 'HP', label: 'i-FORCE MAX Powertrain', prefix: 'Up to ' },
+  { target: 465, unit: 'lb-ft', label: 'of Torque' },
+  { target: 6000, unit: 'lbs', label: 'Towing Capacity' }
+];
+
+const capabilityCards = [
+  {
+    title: 'Multi-Terrain Select',
+    description: 'Optimize traction for different conditions like Mud, Dirt, and Sand.',
+    imageSrc: cardImg1,
+    imageAlt: 'Multi-Terrain Select'
+  },
+  {
+    title: 'CRAWL Control',
+    description: 'Advanced system automatically modulates throttle and brakes on tough terrain.',
+    imageSrc: cardImg1,
+    imageAlt: 'CRAWL Control'
+  },
+  {
+    title: 'Stabilizer Disconnect Mechanism',
+    description: 'SDM provides better wheel articulation when navigating rocky trails.',
+    imageSrc: cardImg1,
+    imageAlt: 'Stabilizer Disconnect Mechanism'
+  }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Toyota Land Cruiser | Toyota Mobility Solutions">
+	<Animations />
+	<main class="w-full overflow-hidden">
+		<Hero />
+		<StickyNav />
+		
+		<div id="design">
+			<FeatureIntro 
+				theme="light"
+				eyebrow="Design"
+				headline="Heritage-inspired."
+				tagline="Built to go back to the origin."
+				description="The all-new Land Cruiser brings back its classic rugged look with a modern twist. The boxy silhouette, distinct front grille, and round heritage headlights (on select models) make a bold statement."
+				imageSrc={featureImg1}
+				imageAlt="Land Cruiser Design"
+			/>
+		</div>
+
+		<div id="performance" class="bg-[#1d1d1f] text-toyota-white py-[60px] md:py-[120px]">
+			<div class="max-w-[980px] mx-auto px-5">
+				<div class="max-w-[650px] mb-[48px]">
+					<p class="text-[12px] font-semibold uppercase tracking-[0.08em] text-toyota-gray mb-2 animate-on-scroll">Performance</p>
+					<h2 class="text-[32px] md:text-[64px] font-bold leading-[1.1] tracking-[-0.3px] mb-4 animate-on-scroll">Power that delivers.</h2>
+					<p class="text-[15px] md:text-[21px] leading-[1.6] text-toyota-gray animate-on-scroll">Experience the perfect balance of efficiency and relentless power with the i-FORCE MAX hybrid powertrain.</p>
+				</div>
+				
+				<StatRow stats={performanceStats} theme="dark" />
+			</div>
+		</div>
+
+		<div id="capability">
+			<FeatureIntro 
+				theme="light"
+				eyebrow="Capability"
+				headline="Ready for the extreme."
+				description="Tackle the toughest trails with confidence. The Land Cruiser is packed with advanced off-road technologies designed to keep you moving forward."
+				imageSrc={featureImg2}
+				imageAlt="Land Cruiser Capability"
+			>
+				<FeatureGrid cards={capabilityCards} theme="light" />
+			</FeatureIntro>
+		</div>
+	</main>
+</Layout>

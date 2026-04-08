@@ -1,0 +1,64 @@
+---
+---
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion) {
+      // 3.1 IntersectionObserver for entrance animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+
+      // 3.2 Count-up logic
+      function countUp(el: Element, target: number, duration: number = 1200) {
+        const start = performance.now();
+        const update = (now: number) => {
+          const progress = Math.min((now - start) / duration, 1);
+          el.textContent = Math.floor(progress * target).toString();
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = target.toString();
+          }
+        };
+        requestAnimationFrame(update);
+      }
+
+      const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const el = e.target;
+            const target = parseInt(el.getAttribute('data-target') || '0', 10);
+            countUp(el, target);
+            statObserver.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll(".stat-number").forEach((el) => statObserver.observe(el));
+
+      // 3.3 Parallax hero image
+      const heroImage = document.querySelector('.hero-image') as HTMLElement;
+      if (heroImage) {
+        window.addEventListener('scroll', () => {
+          requestAnimationFrame(() => {
+            heroImage.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+          });
+        }, { passive: true });
+      }
+    } else {
+       // If reduced motion, set stats to final target immediately
+       document.querySelectorAll(".stat-number").forEach((el) => {
+           const target = el.getAttribute('data-target') || '0';
+           el.textContent = target;
+       });
+    }
+  });
+</script>

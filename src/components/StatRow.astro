@@ -1,0 +1,29 @@
+---
+interface Stat {
+  target: number;
+  unit: string;
+  label: string;
+  prefix?: string;
+}
+
+interface Props {
+  stats: Stat[];
+  theme?: 'dark' | 'light';
+}
+
+const { stats, theme = 'light' } = Astro.props;
+
+const borderClass = theme === 'dark' ? 'border-toyota-gray/20' : 'border-toyota-gray/20';
+const labelClass = theme === 'dark' ? 'text-toyota-gray' : 'text-toyota-gray';
+---
+
+<div class="w-full flex flex-wrap sm:flex-nowrap justify-between gap-6 py-[48px] animate-on-scroll">
+  {stats.map((stat) => (
+    <div class={`flex-1 min-w-[45%] sm:min-w-0 border-t ${borderClass} pt-[24px]`}>
+      <p class="text-[40px] md:text-[72px] font-bold leading-none tracking-[-0.5px]">
+        {stat.prefix && <span>{stat.prefix}</span>}<span class="stat-number" data-target={stat.target}>0</span><span class="text-[20px] md:text-[24px] ml-1">{stat.unit}</span>
+      </p>
+      <p class={`text-[17px] ${labelClass} mt-[8px]`}>{stat.label}</p>
+    </div>
+  ))}
+</div>

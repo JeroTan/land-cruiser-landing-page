@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  id?: string;
+  theme?: 'dark' | 'light';
+  eyebrow: string;
+  headline: string;
+  tagline?: string;
+  description: string;
+  imageSrc: ImageMetadata;
+  imageAlt: string;
+  reverse?: boolean;
+}
+
+const { 
+  id,
+  theme = 'light', 
+  eyebrow, 
+  headline, 
+  tagline, 
+  description, 
+  imageSrc, 
+  imageAlt,
+  reverse = false
+} = Astro.props;
+
+const bgClass = theme === 'dark' ? 'bg-toyota-black text-toyota-white' : 'bg-toyota-white text-toyota-black';
+const eyebrowClass = theme === 'dark' ? 'text-toyota-gray' : 'text-toyota-gray';
+---
+
+<section id={id} class={`w-full py-[60px] md:py-[120px] ${bgClass} overflow-hidden`}>
+  <div class="max-w-[980px] mx-auto px-5">
+    <div class="max-w-[650px] mb-[48px]">
+      <p class={`text-[12px] font-semibold uppercase tracking-[0.08em] ${eyebrowClass} mb-2 animate-on-scroll`}>{eyebrow}</p>
+      <h2 class="text-[32px] md:text-[64px] font-bold leading-[1.1] tracking-[-0.3px] mb-4 animate-on-scroll">{headline}</h2>
+      {tagline && <p class="text-[21px] md:text-[32px] font-semibold mb-4 animate-on-scroll">{tagline}</p>}
+      <p class="text-[15px] md:text-[21px] leading-[1.6] animate-on-scroll">{description}</p>
+    </div>
+
+    <div class={`w-full relative overflow-hidden animate-on-scroll ${theme === 'light' ? '' : 'rounded-[12px]'}`}>
+      <Image 
+        src={imageSrc} 
+        alt={imageAlt} 
+        class="w-full h-auto object-cover object-center"
+      />
+    </div>
+    
+    <slot />
+  </div>
+</section>

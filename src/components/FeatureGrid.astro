@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+
+interface FeatureCard {
+  title: string;
+  description: string;
+  imageSrc: ImageMetadata;
+  imageAlt: string;
+}
+
+interface Props {
+  cards: FeatureCard[];
+  theme?: 'dark' | 'light';
+}
+
+const { cards, theme = 'light' } = Astro.props;
+
+const cardBgClass = theme === 'dark' ? 'bg-[#1d1d1f] text-toyota-white border-none' : 'bg-[#fbfbfd] text-toyota-black border border-[#d2d2d7]';
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[24px] gap-y-[40px] mt-[48px] animate-on-scroll">
+  {cards.map((card, index) => (
+    <div class={`flex flex-col ${cardBgClass} rounded-[12px] overflow-hidden`} style={`transition-delay: ${index * 100}ms`}>
+      <div class="h-[200px] w-full overflow-hidden">
+        <Image 
+          src={card.imageSrc} 
+          alt={card.imageAlt} 
+          class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        />
+      </div>
+      <div class="p-[24px]">
+        <h4 class="text-[20px] font-semibold mb-[8px]">{card.title}</h4>
+        <p class="text-[16px] text-toyota-gray leading-[1.6]">{card.description}</p>
+      </div>
+    </div>
+  ))}
+</div>

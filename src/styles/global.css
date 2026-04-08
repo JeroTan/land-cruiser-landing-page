@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-toyota-red: #EB0A1E;
+  --color-toyota-black: #000000;
+  --color-toyota-white: #FFFFFF;
+  --color-toyota-gray: #58595B;
+
+  --font-toyota: "Toyota Type", "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-toyota);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-toyota-black);
+    color: var(--color-toyota-white);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
+  }
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .hero-image {
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll,
+    .hero-image {
+      transition: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+---
+---
+
+<nav id="sticky-nav" class="sticky top-0 z-50 w-full bg-[#1d1d1f]/72 backdrop-blur-[20px] border-b border-toyota-gray/20 transition-colors duration-300">
+  <div class="max-w-[980px] mx-auto px-5 h-[44px] flex items-center justify-between">
+    <a href="#hero" class="font-bold text-toyota-white text-[14px] hover:opacity-80 transition-opacity">Land Cruiser</a>
+    
+    <div class="flex items-center gap-6 overflow-x-auto no-scrollbar mask-edges">
+      <a href="#design" class="nav-link text-[12px] text-toyota-gray hover:text-toyota-white transition-colors whitespace-nowrap">Design</a>
+      <a href="#performance" class="nav-link text-[12px] text-toyota-gray hover:text-toyota-white transition-colors whitespace-nowrap">Performance</a>
+      <a href="#capability" class="nav-link text-[12px] text-toyota-gray hover:text-toyota-white transition-colors whitespace-nowrap">Capability</a>
+      <a href="#buy" class="bg-toyota-red text-toyota-white px-3 py-1 rounded-[4px] uppercase font-bold text-[10px] hover:bg-red-700 transition-colors ml-2">Buy</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-link.active {
+    color: var(--color-toyota-white);
+  }
+</style>
+
+<script>
+  // Simple active link logic based on scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${entry.target.id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.3, rootMargin: "-100px 0px 0px 0px" });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
